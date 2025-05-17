@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import { HomePage } from "./pages/HomePage";
 import { Home } from "./pages/Home";
+import { AnimeInfo } from "./pages/AnimeInfo";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path={"/home"} element={<Home />} />
+        <Route path={"/anime/:animeId"} element={<AnimeInfo />} />
       </Routes>
     </div>
   );

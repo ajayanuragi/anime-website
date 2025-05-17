@@ -1,7 +1,16 @@
+import { useNavigate } from "react-router";
+
 export function AnimeCard({ anime }) {
+  const navigate = useNavigate();
   const imageUrl = anime?.image;
+  const animeId = anime?.id;
   return (
-    <div className="shadow-2xs gap-2 w-full p-2 rounded-sm cursor-pointer bg-slate-800 text-white hover:text-slate-300 hover:bg-slate-700 flex ">
+    <div
+      className="shadow-2xs gap-2 w-full p-2 rounded-sm cursor-pointer bg-slate-800 text-white hover:text-slate-300 hover:bg-slate-700 flex"
+      onClick={() => {
+        navigate(`/anime/${animeId}`);
+      }}
+    >
       <div className="flex items-center w-full">
         <div
           className="h-16 w-20 bg-cover bg-center rounded mr-2 flex-shrink-0"
