@@ -15,18 +15,15 @@ export const Search = ({setResults}) => {
     }
   };
   return (
-    <div className="flex items-center justify-between gap-2">
+    <div className="flex items-center justify-between w-1/3">
       <input
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="search anime..."
-        className="border p-2 flex-grow"
+        className="shadow-2xl p-2 px-4 flex-grow rounded-xl outline-none bg-slate-800"
       />
-      <button onClick={handleSearch} className="bg-black p-2 text-white">
-        Search
-      </button>
     </div>
   );
 };
