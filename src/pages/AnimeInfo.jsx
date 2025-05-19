@@ -42,12 +42,19 @@ export function AnimeInfo() {
     fetchAnimeInfo();
   }, [animeId]);
 
-  console.log(animeInfo);
   if (loading) {
-    return <p>Loading....</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-6xl">Loading...</p>
+      </div>
+    );
   }
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-6xl">{error}</p>
+      </div>
+    );
   }
 
   return <AnimeDetails anime={animeInfo} />;
