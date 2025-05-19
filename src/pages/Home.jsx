@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Navbar } from "../components/homepage/Navbar";
-import { AnimeResults } from "../components/homepage/AnimeResults";
+import { Navbar } from "../components/home-page/Navbar";
+import { AnimeResults } from "../components/home-page/AnimeResults";
 
 export function Home() {
   const [results, setResults] = useState("");
