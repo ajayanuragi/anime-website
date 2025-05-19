@@ -1,8 +1,12 @@
+import AnimeEpisodeCard from "./AnimeEpisodeCard";
+import AnimeEpisode from "./AnimeEpisodeCard";
+import AnimeEpisodes from "./AnimeEpisodeCard";
+
 export function AnimeDetails({ anime }) {
   if (!anime) return null;
-  const { image, title, description, status, cover, color } = anime;
+  const { image, title, description, status, cover, color, episodes } = anime;
   return (
-    <div className="px-8 space-y-6">
+    <div className="px-8 space-y-6 bg-slate-950 text-white">
       {/* Title Banner */}
       <div
         className="text-6xl mb-8 rounded-xl w-full text-white flex items-center justify-center font-bold bg-cover bg-center h-48"
@@ -34,6 +38,14 @@ export function AnimeDetails({ anime }) {
         style={{ backgroundColor: color || "black" }}
       >
         Status: {status}
+      </div>
+      <div className="my-10 text-center text-3xl">
+        <div className="text-4xl font-bold my-10">Episodes</div>
+        <div className="flex flex-wrap gap-5 items-center justify-center">
+          {episodes.map((episode) => (
+            <AnimeEpisodeCard episode={episode} key={episode.id} />
+          ))}
+        </div>
       </div>
     </div>
   );
