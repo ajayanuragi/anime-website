@@ -1,9 +1,18 @@
+import { useState } from "react";
 import AnimeEpisodeCard from "./AnimeEpisodeCard";
 
 export function AnimeDetails({ anime }) {
+  const [page, setPage] = useState(0);
+
   if (!anime) return null;
   const { image, title, description, status, cover, color, episodes, trailer } =
     anime;
+
+  const episodesPerPage = 12;
+  const startIndex = page * episodesPerPage;
+  const endIndex = startIndex + episodesPerPage;
+  const currentEpisodes = episodes.slice(startIndex, endIndex);
+  const hasNextPage = (page + 1) * episodesPerPage < episodes.length;
   return (
     <div className="px-8 space-y-6 bg-slate-950 text-white">
       <div
@@ -62,9 +71,27 @@ export function AnimeDetails({ anime }) {
       <div className="pb-10 text-center text-3xl">
         <div className="text-4xl font-bold my-10">Episodes</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {episodes.slice(0, 12).map((episode) => (
+          {currentEpisodes.map((episode) => (
             <AnimeEpisodeCard episode={episode} key={episode.id} />
           ))}
+        </div>
+        <div className="mt-10 flex justify-center gap-4 text-base">
+          {page > 0 && (
+            <button
+              onClick={() => setPage((prev) => prev - 1)}
+              className="px-6 py-2 border rounded hover:bg-gray-800"
+            >
+              Previous
+            </button>
+          )}
+          {hasNextPage && (
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              className="px-6 py-2 border rounded hover:bg-gray-800"
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     </div>
