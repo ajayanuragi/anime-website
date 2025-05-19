@@ -41,25 +41,22 @@ export function AnimeDetails({ anime }) {
           Type: {anime.type}
         </div>
       </div>
-      <div className="flex">
-        <div>
-          {trailer?.id && (
-            <>
-              <div className="text-3xl my-5">Trailer</div>
-              <div className="aspect-w-16 aspect-h-9 w-full max-w-4xl">
-                <iframe
-                  width="100%"
-                  height="315"
-                  src={`https://www.youtube.com/embed/${trailer.id}`}
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="rounded-lg"
-                ></iframe>
-              </div>
-            </>
-          )}
-        </div>
+
+      <div>
+        {trailer?.id && (
+          <>
+            <div className="text-3xl text-center my-5">Trailer</div>
+            <div className="flex items-center justify-center">
+              <iframe
+                src={`https://www.youtube.com/embed/${trailer.id}`}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="rounded-lg w-9/12 aspect-video"
+              ></iframe>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="pb-10 text-center text-3xl">
