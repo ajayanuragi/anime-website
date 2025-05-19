@@ -1,9 +1,15 @@
+import { useNavigate } from "react-router";
+
 export function SearchAnimeCard({ anime }) {
-  const { image, title, color } = anime;
+  const { image, title, color, id } = anime;
+  const navigate = useNavigate();
   return (
     <div
-      className="shadow-slate-800 rounded-xl text-white
+      className="shadow-slate-800 rounded-xl text-white cursor-pointer hover:scale-[1.01]
     "
+      onClick={() => {
+        navigate(`/anime/${id}`);
+      }}
     >
       <div
         className="bg-cover bg-center bg-no-repeat w-full h-96 rounded-xl shadow-slate-800 shadow-lg"
@@ -14,10 +20,10 @@ export function SearchAnimeCard({ anime }) {
       </div>
       <div className="flex justify-between items-center text-xs mt-2">
         <div
-          className="p-1 rounded-lg w-fit px-4 text-slate-950"
+          className="p-2 rounded-lg w-fit px-4 text-slate-950"
           style={{ background: `${color || "white"}` }}
         >
-          {anime.totalEpisodes || "Preview"}
+          CC: {anime.totalEpisodes || "Preview"}
         </div>
         <div>{anime.type}</div>
       </div>
