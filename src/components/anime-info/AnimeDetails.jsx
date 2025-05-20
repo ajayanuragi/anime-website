@@ -1,29 +1,19 @@
-import { useState } from "react";
-import AnimeEpisodeCard from "./AnimeEpisodeCard";
+import { useNavigate } from "react-router";
 
-export function AnimeDetails({ anime }) {
-  const [page, setPage] = useState(0);
-
-  if (!anime) return null;
-  const { image, title, description, status, cover, color, episodes, trailer } =
-    anime;
-
-  const episodesPerPage = 12;
-  const startIndex = page * episodesPerPage;
-  const endIndex = startIndex + episodesPerPage;
-  const currentEpisodes = episodes.slice(startIndex, endIndex);
-  const hasNextPage = (page + 1) * episodesPerPage < episodes.length;
+export function AnimeDetails({ anime, animeData }) {
+  const { image, title, description, status, cover, color, trailer } = anime;
+  const navigate = useNavigate();
   return (
-    <div className="px-8 space-y-6 bg-slate-800 text-white">
+    <div className="px-2 py-2 bg-slate-800 text-white w-full md:px-8 md:py-10">
       <div
-        className="text-6xl mb-8 rounded-xl w-full text-white flex items-center justify-center font-bold bg-cover bg-center h-48"
+        className="text-xl mb-2 rounded-xl w-full text-white flex items-center justify-center font-bold bg-cover bg-center h-80 md:text-6xl md:mb-8 md:text-center"
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${cover})`,
         }}
       >
         {title?.english || title?.romaji}
       </div>
-      <div className="flex flex-col md:flex-row gap-4 ">
+      <div className="flex flex-col md:flex-row gap-4 py-4">
         <img
           src={image}
           alt={title?.romaji || "Anime"}
@@ -32,23 +22,40 @@ export function AnimeDetails({ anime }) {
         <div>
           <div
             dangerouslySetInnerHTML={{ __html: description }}
-            className="prose max-w-none text-base md:text-xl"
+            className="prose max-w-none text-sm md:text-xl text-justify"
           />
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <div
-          className="text-sm text-black w-fit px-4 py-2 rounded"
-          style={{ backgroundColor: color || "white" }}
-        >
-          Status: {status}
+      <div className="flex items-center justify-between flex-col gap-4 py-2  md:flex-row">
+        <div className="flex items-center gap-0.5 md:gap-2">
+          <div
+            className="text-xs text-black px-4 py-2 rounded md:text-sm"
+            style={{ backgroundColor: color || "white" }}
+          >
+            Status: {status}
+          </div>
+          <div className="border px-4 py-2 rounded w-fit text-xs md:text-sm">
+            Rating: {anime.rating}
+          </div>
+          <div className="border text-xs rounded w-fit px-4 py-2 md:text-sm">
+            Type: {anime.type}
+          </div>
         </div>
-        <div className="border px-4 rounded w-fit py-2 text-sm">
-          Rating: {anime.rating}
-        </div>
-        <div className="border px-4 rounded w-fit py-2 text-sm">
-          Type: {anime.type}
-        </div>
+        {animeData && (
+          <button
+            className="text-black rounded w-full px-4 py-4 text-xs md:text-sm md:px-4 md:py-4 md:w-1/4  cursor-pointer"
+            style={{ background: `${color}` }}
+            onClick={() => {
+              navigate("/anime/episodes", {
+                state: {
+                  animeData,
+                },
+              });
+            }}
+          >
+            Episodes
+          </button>
+        )}
       </div>
 
       <div>
@@ -61,38 +68,11 @@ export function AnimeDetails({ anime }) {
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                className="rounded-lg w-9/12 aspect-video"
+                className="rounded-lg w-full aspect-video md:w-10/12"
               ></iframe>
             </div>
           </>
         )}
-      </div>
-
-      <div className="pb-10 text-center text-3xl">
-        <div className="text-4xl font-bold my-10">Episodes</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {currentEpisodes.map((episode) => (
-            <AnimeEpisodeCard episode={episode} key={episode.id} />
-          ))}
-        </div>
-        <div className="mt-10 flex justify-center gap-4 text-base">
-          {page > 0 && (
-            <button
-              onClick={() => setPage((prev) => prev - 1)}
-              className="px-6 py-2 border rounded hover:bg-gray-800"
-            >
-              Previous
-            </button>
-          )}
-          {hasNextPage && (
-            <button
-              onClick={() => setPage((prev) => prev + 1)}
-              className="px-6 py-2 border rounded hover:bg-gray-800"
-            >
-              Next
-            </button>
-          )}
-        </div>
       </div>
     </div>
   );
