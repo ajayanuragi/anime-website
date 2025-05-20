@@ -1,78 +1,100 @@
-import { useNavigate } from "react-router";
+import AnimeDescription from "./AnimeDescription";
+import AnimeGenresTags from "./AnimeGenresTags";
+import { AnimeTrailer } from "./AnimeTrailer";
 
 export function AnimeDetails({ anime, animeData }) {
-  const { image, title, description, status, cover, color, trailer } = anime;
-  const navigate = useNavigate();
+  const {
+    image,
+    title,
+    description,
+    status,
+    cover,
+    color,
+    trailer,
+    type,
+    duration,
+    rating,
+    totalEpisodes,
+    genres,
+  } = anime;
+  console.log(anime);
+  console.log(animeData);
   return (
-    <div className="px-2 py-2 bg-slate-800 text-white w-full md:px-8 md:py-10">
-      <div
-        className="text-xl mb-2 rounded-xl w-full text-white flex items-center justify-center font-bold bg-cover bg-center h-80 md:text-6xl md:mb-8 md:text-center"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${cover})`,
-        }}
-      >
-        {title?.english || title?.romaji}
-      </div>
-      <div className="flex flex-col md:flex-row gap-4 py-4">
-        <img
-          src={image}
-          alt={title?.romaji || "Anime"}
-          className="w-full max-w-sm rounded-xl shadow-md"
+    <div className="bg-slate-800 text-white min-h-screen">
+      {cover && (
+        <div
+          className="h-64 w-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${cover})` }}
         />
-        <div>
-          <div
-            dangerouslySetInnerHTML={{ __html: description }}
-            className="prose max-w-none text-sm md:text-xl text-justify"
-          />
-        </div>
-      </div>
-      <div className="flex items-center justify-between flex-col gap-4 py-2  md:flex-row">
-        <div className="flex items-center gap-0.5 md:gap-2">
-          <div
-            className="text-xs text-black px-4 py-2 rounded md:text-sm"
-            style={{ backgroundColor: color || "white" }}
-          >
-            Status: {status}
-          </div>
-          <div className="border px-4 py-2 rounded w-fit text-xs md:text-sm">
-            Rating: {anime.rating}
-          </div>
-          <div className="border text-xs rounded w-fit px-4 py-2 md:text-sm">
-            Type: {anime.type}
-          </div>
-        </div>
-        {animeData && (
-          <button
-            className="text-black rounded w-full px-4 py-4 text-xs md:text-sm md:px-4 md:py-4 md:w-1/4  cursor-pointer"
-            style={{ background: `${color}` }}
-            onClick={() => {
-              navigate("/anime/episodes", {
-                state: {
-                  animeData,
-                },
-              });
-            }}
-          >
-            Episodes
-          </button>
-        )}
-      </div>
+      )}
 
-      <div>
-        {trailer?.id && (
-          <>
-            <div className="text-3xl text-center my-5">Trailer</div>
-            <div className="flex items-center justify-center">
-              <iframe
-                src={`https://www.youtube.com/embed/${trailer.id}`}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="rounded-lg w-full aspect-video md:w-10/12"
-              ></iframe>
-            </div>
-          </>
-        )}
+      <div className="max-w-6xl mx-auto px-6 py-10">
+        <h1
+          className="text-6xl font-bold mb-2"
+          style={{ color: color || "#fff" }}
+        >
+          {title?.romaji || "Untitled"}
+        </h1>
+        <p
+          className="text-gray-400 mb-4 text-sm italic"
+          aria-label="English title"
+        >
+          {title?.english !== title?.romaji ? title?.english : ""}
+        </p>
+        <section
+          className="flex flex-col md:flex-row gap-6 mb-10"
+          aria-label="Anime main information and image"
+        >
+          <img
+            src={image}
+            alt={title?.romaji}
+            className="w-full md:w-64 rounded-xl shadow-lg object-cover"
+          />
+          <div className="flex-1 space-y-2 text-gray-200 text-md">
+            <p>
+              <span className="font-semibold text-gray-400">Status:</span>{" "}
+              {status || "-"}
+            </p>
+            <p>
+              <span className="font-semibold text-gray-400">Type:</span>{" "}
+              {type || "-"}
+            </p>
+            {duration && (
+              <p>
+                <span className="font-semibold text-gray-400">Duration:</span>{" "}
+                {duration || "-"}
+              </p>
+            )}
+
+            <p>
+              <span className="font-semibold text-gray-400">Episodes:</span>{" "}
+              {totalEpisodes || "-"}
+            </p>
+            <p>
+              <span className="font-semibold text-gray-400">Rating:</span>{" "}
+              {rating || "-"}
+            </p>
+            {animeData && (
+              <div className="space-y-2">
+                <p>
+                  <span className="font-semibold text-gray-400">
+                    Sub or Dub:
+                  </span>{" "}
+                  {animeData.subOrDub || "-"}
+                </p>
+
+                <p>
+                  <span className="font-semibold text-gray-400">Studios:</span>{" "}
+                  {animeData.studios || "-"}
+                </p>
+              </div>
+            )}
+
+            <AnimeGenresTags genres={genres} color={color} />
+          </div>
+        </section>
+        <AnimeDescription description={description} color={color} />
+        {trailer?.site && <AnimeTrailer trailer={trailer} color={color} />}
       </div>
     </div>
   );

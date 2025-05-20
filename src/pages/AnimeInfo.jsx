@@ -22,7 +22,6 @@ export function AnimeInfo() {
     fetchEpisodes();
   }, [id]);
 
-  console.log(anime);
   if (!anime) {
     navigate("/home");
     return null;
