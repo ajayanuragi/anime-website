@@ -19,7 +19,7 @@ export function AnimeCard({ anime }) {
 
         <div className="flex flex-col max-w-full overflow-hidden">
           <div className="truncate text-ellipsis overflow-hidden whitespace-nowrap font-semibold max-w-full">
-            {anime?.title?.romaji}
+            {anime?.title?.english || anime?.title?.romaji}
           </div>
           <div className="flex gap-2 text-sm text-slate-300">
             <div>{anime?.totalEpisodes}</div>

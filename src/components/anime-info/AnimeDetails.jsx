@@ -21,7 +21,7 @@ export function AnimeDetails({ anime }) {
           backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${cover})`,
         }}
       >
-        {title?.romaji || title?.english}
+        {title?.english || title?.romaji}
       </div>
       <div className="flex flex-col md:flex-row gap-4 ">
         <img

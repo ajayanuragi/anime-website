@@ -8,6 +8,7 @@ export function TrendingAnime() {
   const [hasNext, setHasNext] = useState(false);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   useEffect(() => {
     const fetchTrendingAnime = async () => {
       try {
@@ -25,6 +26,7 @@ export function TrendingAnime() {
         setHasNext(data.hasNextPage);
       } catch (err) {
         console.error(err);
+        setError(err);
       } finally {
         setLoading(false);
       }
@@ -37,6 +39,13 @@ export function TrendingAnime() {
     return (
       <div className="min-h-screen flex items-center justify-center text-3xl">
         Loading...
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-3xl">
+        {error.message}
       </div>
     );
   }

@@ -8,6 +8,7 @@ export function PopularAnime() {
   const [hasNext, setHasNext] = useState(false);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null)
   useEffect(() => {
     const fetchPopularAnime = async () => {
       try {
@@ -20,6 +21,7 @@ export function PopularAnime() {
         setResults(response.data.results);
       } catch (err) {
         console.error(err);
+        setError(err)
       } finally {
         setLoading(false);
       }
@@ -30,8 +32,15 @@ export function PopularAnime() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center text-3xl">
         Loading...
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-3xl">
+        {error.message}
       </div>
     );
   }
