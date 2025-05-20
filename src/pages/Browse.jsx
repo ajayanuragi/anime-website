@@ -4,6 +4,9 @@ import { SearchAnimeCard } from "../components/browse/SearchAnimeCard";
 export function Browse() {
   const location = useLocation();
   const results = location.state?.results;
+  const search = location.state?.search;
+
+  console.log(search)
 
   if (!results || !results.results || results.results.length === 0) {
     return (
@@ -16,9 +19,9 @@ export function Browse() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 p-8">
+    <div className="min-h-screen bg-slate-800 p-8">
       <h1 className="text-3xl font-bold text-slate-200 mb-8">Browse Anime</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-10">
         {results.results.map((result) => (
           <SearchAnimeCard anime={result} key={result.id} />
         ))}

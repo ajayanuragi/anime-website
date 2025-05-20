@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path={"/home"} element={<Home />} />
         <Route path={"/browse"} element={<Browse />} />
-        <Route path={"/anime/:animeId"} element={<AnimeInfo />} />
+        <Route path={"/anime/:id"} element={<AnimeInfo />} />
       </Routes>
     </div>
   );

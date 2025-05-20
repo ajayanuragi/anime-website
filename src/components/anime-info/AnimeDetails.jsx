@@ -14,7 +14,7 @@ export function AnimeDetails({ anime }) {
   const currentEpisodes = episodes.slice(startIndex, endIndex);
   const hasNextPage = (page + 1) * episodesPerPage < episodes.length;
   return (
-    <div className="px-8 space-y-6 bg-slate-950 text-white">
+    <div className="px-8 space-y-6 bg-slate-800 text-white">
       <div
         className="text-6xl mb-8 rounded-xl w-full text-white flex items-center justify-center font-bold bg-cover bg-center h-48"
         style={{

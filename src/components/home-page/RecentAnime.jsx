@@ -43,7 +43,7 @@ export function RecentAnime() {
     );
   }
   return (
-    <div className="text-white text-2xl p-4">
+    <div className="text-white text-3xl">
       <h1 className="text-3xl text-center font-bold mb-10">Recent Anime 🔄</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {results.map((result) => (

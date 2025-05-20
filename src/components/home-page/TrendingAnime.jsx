@@ -50,7 +50,7 @@ export function TrendingAnime() {
     );
   }
   return (
-    <div className="text-white text-2xl p-4">
+    <div className="text-white text-3xl">
       <h1 className="text-3xl text-center font-bold mb-10">
         Trending Shows 🔥
       </h1>

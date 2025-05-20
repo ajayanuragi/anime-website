@@ -1,17 +1,43 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import api from "../api/api";
+import { useNavigate } from "react-router";
 
-export const Search = ({setResults}) => {
+export const Search = ({ setResults }) => {
   const [search, setSearch] = useState("");
-  async function handleSearch() {
-    if (!search.trim()) return;
-    const res = await api.get("/meta/anilist/" + search);
-    setResults(res.data);
-  }
+  const navigate = useNavigate();
+  const handleSearch = useCallback(
+    async (query) => {
+      if (!query.trim()) return;
+      try {
+        const res = await api.get("/meta/anilist/" + encodeURIComponent(query));
+        setResults(res.data);
+      } catch (err) {
+        console.error("Search error:", err);
+      }
+    },
+    [setResults]
+  );
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (search.replace(/\s/g, "").length >= 3) {
+        handleSearch(search);
+      }
+    }, 300);
+    return () => {
+      clearTimeout(delayDebounce);
+    };
+  }, [search, handleSearch]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      handleSearch();
+      if (!search.trim()) return;
+
+      navigate("/browse", {
+        state: {
+          search,
+        },
+      });
     }
   };
   return (
@@ -22,7 +48,7 @@ export const Search = ({setResults}) => {
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="search anime..."
-        className="shadow-2xl p-2 px-4 flex-grow rounded-xl outline-none bg-slate-800"
+        className="shadow-2xl p-2 px-4 flex-grow rounded-xl outline-none bg-slate-700"
       />
     </div>
   );

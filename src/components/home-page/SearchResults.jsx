@@ -28,7 +28,7 @@ export function SearchResults({ results }) {
     return null;
   }
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center pt-5 mt-10 z-50">
       <div
         className="shadow-sm rounded-sm w-1/3 ml-20 bg-slate-950"
         ref={resultsRef}

@@ -3,12 +3,16 @@ import { useNavigate } from "react-router";
 export function AnimeCard({ anime }) {
   const navigate = useNavigate();
   const imageUrl = anime?.image;
-  const animeId = anime?.id;
+
   return (
     <div
       className="shadow-2xs gap-2 w-full p-2 rounded-sm cursor-pointer bg-slate-800 text-white hover:text-slate-300 hover:bg-slate-700 flex"
       onClick={() => {
-        navigate(`/anime/${animeId}`);
+        navigate(`/anime/${anime?.id}`, {
+          state: {
+            anime: anime,
+          },
+        });
       }}
     >
       <div className="flex items-center w-full">

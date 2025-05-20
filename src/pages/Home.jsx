@@ -10,7 +10,7 @@ export function Home() {
   const [activeTab, setActiveTab] = useState("popular");
 
   return (
-    <div className="m-0 p-0">
+    <div className="m-0 p-0 bg-linear-to-bl from-violet-500 to-fuchsia-500">
       <div
         className="min-h-screen bg-center bg-cover "
         style={{
@@ -19,10 +19,10 @@ export function Home() {
       >
         <div className="pt-4">
           <Navbar setResults={setResults} />
+          <SearchResults results={results} />
         </div>
-        <SearchResults results={results} />
       </div>
-      <div className="min-h-screen bg-slate-900 text-white px-8 py-10">
+      <div className="min-h-screen bg-slate-800 text-white px-8 py-10">
         <div className="flex gap-8 jusify-center mb-8 px-4">
           <button
             className="cursor-pointer border px-4 py-2 rounded-lg"
@@ -40,14 +40,18 @@ export function Home() {
           >
             Popular
           </button>
-          <button className="cursor-pointer border px-4 py-2 rounded-lg" onClick={()=>{
-            setActiveTab('recent')
-          }}>Recent</button>
+          <button
+            className="cursor-pointer border px-4 py-2 rounded-lg"
+            onClick={() => {
+              setActiveTab("recent");
+            }}
+          >
+            Recent
+          </button>
         </div>
         {activeTab === "trending" && <TrendingAnime />}
         {activeTab === "popular" && <PopularAnime />}
-        {activeTab === 'recent' && <RecentAnime />}
-
+        {activeTab === "recent" && <RecentAnime />}
       </div>
     </div>
   );
