@@ -1,9 +1,25 @@
-import { useLocation, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router";
+import api from "../api/api";
 
 export function AnimeInfo() {
   const location = useLocation();
+  const { id } = useParams();
   const { anime } = location.state || {};
+  const [animeData, setAnimeData] = useState(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    const fetchEpisodes = async () => {
+      try {
+        const response = await api.get(`/meta/anilist/info/${id}`);
+        setAnimeData(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchEpisodes();
+  }, [id]);
 
   console.log(anime);
   if (!anime) {
@@ -15,7 +31,7 @@ export function AnimeInfo() {
   return (
     <div className="px-2 py-2 bg-slate-800 text-white w-full md:px-8 md:py-10">
       <div
-        className="text-xl mb-2 rounded-xl w-full text-white flex items-center justify-center font-bold bg-cover bg-center h-80 md:text-6xl md:mb-8"
+        className="text-xl mb-2 rounded-xl w-full text-white flex items-center justify-center font-bold bg-cover bg-center h-80 md:text-6xl md:mb-8 md:text-center"
         style={{
           backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${cover})`,
         }}
@@ -50,12 +66,21 @@ export function AnimeInfo() {
             Type: {anime.type}
           </div>
         </div>
-        <button
-          className="text-black rounded w-full px-4 py-4 text-xs md:text-sm md:px-4 md:py-4 md:w-1/4  cursor-pointer"
-          style={{ background: `${color}` }}
-        >
-          Episodes
-        </button>
+        {animeData && (
+          <button
+            className="text-black rounded w-full px-4 py-4 text-xs md:text-sm md:px-4 md:py-4 md:w-1/4  cursor-pointer"
+            style={{ background: `${color}` }}
+            onClick={() => {
+              navigate("/anime/episodes", {
+                state: {
+                  animeData,
+                },
+              });
+            }}
+          >
+            Episodes
+          </button>
+        )}
       </div>
 
       <div>

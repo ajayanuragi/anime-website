@@ -3,6 +3,7 @@ import { HomePage } from "./pages/HomePage";
 import { Home } from "./pages/Home";
 import { AnimeInfo } from "./pages/AnimeInfo";
 import { Browse } from "./pages/Browse";
+import AnimeEpisodes from "./pages/AnimeEpisodes";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path={"/home"} element={<Home />} />
         <Route path={"/browse"} element={<Browse />} />
         <Route path={"/anime/:id"} element={<AnimeInfo />} />
+        <Route path={"/anime/episodes"} element={<AnimeEpisodes />} />
       </Routes>
     </div>
   );
