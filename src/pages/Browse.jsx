@@ -6,11 +6,11 @@ export function Browse() {
   const results = location.state?.results;
   const search = location.state?.search;
 
-  console.log(search)
-
+console.log(results)
+console.log(search)
   if (!results || !results.results || results.results.length === 0) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen bg-slate-800">
         <div className="text-slate-200 text-xl">
           No results found. Try a different search.
         </div>

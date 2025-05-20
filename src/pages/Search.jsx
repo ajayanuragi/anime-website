@@ -9,7 +9,8 @@ export const Search = ({ setResults }) => {
     async (query) => {
       if (!query.trim()) return;
       try {
-        const res = await api.get("/meta/anilist/" + encodeURIComponent(query));
+        const queryTerm = encodeURIComponent(query);
+        const res = await api.get(`/meta/anilist/${queryTerm}?perPage=16`);
         setResults(res.data);
       } catch (err) {
         console.error("Search error:", err);
