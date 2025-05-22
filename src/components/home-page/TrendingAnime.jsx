@@ -62,7 +62,7 @@ export function TrendingAnime() {
       <div className="flex gap-8 my-10 items-center justify-center">
         {page > 1 && (
           <button
-            className="cursor-pointer px-4 py-2 border rounded-lg"
+            className="cursor-pointer px-4 py-2 border rounded-lg text-sm"
             onClick={() => {
               setPage(page - 1);
             }}
@@ -72,7 +72,7 @@ export function TrendingAnime() {
         )}
         {hasNext && (
           <button
-            className="cursor-pointer px-4 py-2 border rounded-lg"
+            className="cursor-pointer px-4 py-2 border rounded-lg text-sm"
             onClick={() => {
               setPage(page + 1);
             }}
