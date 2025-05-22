@@ -5,7 +5,6 @@ import { Suspense, lazy } from "react";
 
 const AnimeInfo = lazy(() => import("./pages/AnimeInfo"));
 const Browse = lazy(() => import("./pages/Browse"));
-const AnimeEpisodes = lazy(() => import("./pages/AnimeEpisodes"));
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <Route path={"/home"} element={<Home />} />
         <Route path={"/browse"} element={<Browse />} />
         <Route path={"/anime/:id"} element={<AnimeInfo />} />
-        <Route path={"/anime/episodes"} element={<AnimeEpisodes />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     </Suspense>

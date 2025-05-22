@@ -45,6 +45,7 @@ export function AnimeDetails({ anime, animeData }) {
           genres={genres}
           color={color}
           episodes={episodes}
+          currentEpisode={animeData?.currentEpisode}
         />
         {description && (
           <AnimeDescription description={description} color={color} />

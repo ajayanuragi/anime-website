@@ -13,6 +13,7 @@ const InfoSection = ({
   genres,
   color,
   episodes,
+  currentEpisode,
 }) => {
   return (
     <section className="flex flex-col md:flex-row gap-6 mb-10">
@@ -39,6 +40,14 @@ const InfoSection = ({
           <p>
             <span className="font-semibold text-gray-400">Duration:</span>{" "}
             {duration}
+          </p>
+        )}
+        {currentEpisode && (
+          <p>
+            <span className="font-semibold text-gray-400">
+              Current Episode:
+            </span>{" "}
+            {currentEpisode || "-"}
           </p>
         )}
         {(totalEpisodes || episodes) && (

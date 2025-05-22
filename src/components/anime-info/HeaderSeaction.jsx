@@ -5,7 +5,7 @@ const HeaderSeaction = ({ cover }) => {
 
   return (
     <div
-      className="h-64 w-full bg-cover bg-center"
+      className="h-72 w-full bg-cover bg-center"
       style={{ backgroundImage: `url(${cover})` }}
     />
   );
