@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import api from "../api/api";
 import { useNavigate } from "react-router";
 
-export const Search = ({ setResults }) => {
-  const [search, setSearch] = useState("");
+export const Search = ({ search, setSearch, results, setResults }) => {
   const navigate = useNavigate();
   const handleSearch = useCallback(
     async (query) => {
@@ -37,6 +36,7 @@ export const Search = ({ setResults }) => {
       navigate("/browse", {
         state: {
           search,
+          results,
         },
       });
     }

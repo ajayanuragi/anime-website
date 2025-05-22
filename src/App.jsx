@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router";
 import { HomePage } from "./pages/HomePage";
 import { Home } from "./pages/Home";
 import { Suspense, lazy } from "react";
+import Layout from "./layouts/Layout";
 
 const AnimeInfo = lazy(() => import("./pages/AnimeInfo"));
 const Browse = lazy(() => import("./pages/Browse"));
@@ -17,10 +18,12 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path={"/home"} element={<Home />} />
-        <Route path={"/browse"} element={<Browse />} />
-        <Route path={"/anime/:id"} element={<AnimeInfo />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route element={<Layout />}>
+          <Route path={"/home"} element={<Home />} />
+          <Route path={"/browse"} element={<Browse />} />
+          <Route path={"/anime/:id"} element={<AnimeInfo />} />
+          <Route path="*" element={<Navigate to="/home" replace />} />
+        </Route>
       </Routes>
     </Suspense>
   );

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-export function AnimeCard({ anime }) {
+export function AnimeCard({ anime, setVisible }) {
   const navigate = useNavigate();
   const imageUrl = anime?.image;
 
@@ -8,6 +8,7 @@ export function AnimeCard({ anime }) {
     <div
       className="shadow-2xs gap-2 w-full p-2 rounded-sm cursor-pointer bg-slate-800 text-white hover:text-slate-300 hover:bg-slate-700 flex"
       onClick={() => {
+        setVisible?.(false);
         navigate(`/anime/${anime?.id}`, {
           state: {
             anime: anime,
