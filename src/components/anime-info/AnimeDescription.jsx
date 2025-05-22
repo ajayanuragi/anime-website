@@ -8,7 +8,7 @@ export default function AnimeDescription({ description, color }) {
     >
       <h2
         className="text-2xl font-bold mb-2"
-        style={{ color: color || "#e49335" }}
+        style={{ color: color || "#fff" }}
       >
         Description
       </h2>

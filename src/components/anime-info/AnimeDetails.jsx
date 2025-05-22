@@ -33,7 +33,7 @@ export function AnimeDetails({ anime, animeData }) {
         />
       )}
 
-      <div className="max-w-6xl mx-auto px-6 py-10">
+      <div className="max-w-6xl mx-auto px-2 py-10 md:px-5 ">
         <h1
           className="text-6xl font-bold mb-2"
           style={{ color: color || "#fff" }}
@@ -47,7 +47,7 @@ export function AnimeDetails({ anime, animeData }) {
           {title?.english !== title?.romaji ? title?.english : ""}
         </p>
         <section
-          className="flex flex-col md:flex-row gap-6 mb-10" 
+          className="flex flex-col md:flex-row gap-6 mb-10"
           aria-label="Anime main information and image"
         >
           <img
@@ -111,13 +111,16 @@ export function AnimeDetails({ anime, animeData }) {
 
             <div className="p-4 rounded-md shadow-xs">
               {activeTab === "recommendations" && (
-                <Recommendations recommendations={animeData?.recommendations} />
+                <Recommendations
+                  recommendations={animeData?.recommendations}
+                  color={color}
+                />
               )}
               {activeTab === "relations" && (
-                <Relations relations={animeData?.relations} />
+                <Relations relations={animeData?.relations} color={color} />
               )}
               {activeTab === "episodes" && (
-                <Episodes episodes={animeData?.episodes} />
+                <Episodes episodes={animeData?.episodes} color={color} />
               )}
             </div>
           </div>

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import api from "../api/api";
 import { AnimeDetails } from "../components/anime-info/AnimeDetails";
 
-export function AnimeInfo() {
+export default function AnimeInfo() {
   const location = useLocation();
   const { id } = useParams();
   const { anime } = location.state || {};
   const [animeData, setAnimeData] = useState(null);
-  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchEpisodes = async () => {
       try {
@@ -22,13 +22,13 @@ export function AnimeInfo() {
     fetchEpisodes();
   }, [id]);
 
-  if (!anime) {
-    navigate("/home");
-    return null;
+  if (!anime && !animeData) {
+    return (
+      <div className="text-white bg-slate-800 min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
   }
- 
 
-  return (
-    <AnimeDetails anime={anime} animeData={animeData}/>
-  );
+  return <AnimeDetails anime={anime || animeData} animeData={animeData} />;
 }
