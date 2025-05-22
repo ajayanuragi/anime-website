@@ -1,11 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
-const RelationCard = ({ relation, color}) => {
-  const {image, rating, relationType, status, title, type} = relation
+const RelationCard = ({ relation, color }) => {
+  const navigate = useNavigate();
+  const { id, image, rating, relationType, status, title, type } = relation;
   return (
     <div
-      className="shadow-slate-800 rounded-xl text-white py-2 hover:scale-[1.01] hover:text-slate-200
+      className="shadow-slate-800 rounded-xl text-white py-2 hover:scale-[1.01] hover:text-slate-200 cursor-pointer
     "
+      onClick={() => {
+        navigate(`/anime/${id}`);
+      }}
     >
       <div
         className="bg-cover bg-center bg-no-repeat w-full h-96 rounded-xl shadow-slate-800 shadow-lg"

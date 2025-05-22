@@ -2,7 +2,13 @@ import React from "react";
 import RelationCard from "./RelationCard";
 
 const Relations = ({ relations, color }) => {
-  const filtered = relations.filter((x) => x.type !== "MANGA");
+  if (!relations || relations.length === 0) {
+    return <p className="text-white"> No related content found</p>;
+  }
+
+  const filtered = relations.filter(
+    (x) => x.type !== "MANGA" && x.type !== "NOVEL"
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
