@@ -12,6 +12,7 @@ const InfoSection = ({
   animeData,
   genres,
   color,
+  episodes,
 }) => {
   return (
     <section className="flex flex-col md:flex-row gap-6 mb-10">
@@ -21,28 +22,38 @@ const InfoSection = ({
         className="w-full md:w-64 rounded-xl shadow-lg object-cover"
       />
       <div className="flex-1 space-y-2 text-gray-200 text-md">
-        <p>
-          <span className="font-semibold text-gray-400">Status:</span>{" "}
-          {status || "-"}
-        </p>
-        <p>
-          <span className="font-semibold text-gray-400">Type:</span>{" "}
-          {type || "-"}
-        </p>
+        {status && (
+          <p>
+            <span className="font-semibold text-gray-400">Status:</span>{" "}
+            {status || "-"}
+          </p>
+        )}
+        {type && (
+          <p>
+            <span className="font-semibold text-gray-400">Type:</span>{" "}
+            {type || "-"}
+          </p>
+        )}
+
         {duration && (
           <p>
             <span className="font-semibold text-gray-400">Duration:</span>{" "}
             {duration}
           </p>
         )}
-        <p>
-          <span className="font-semibold text-gray-400">Episodes:</span>{" "}
-          {totalEpisodes || "-"}
-        </p>
-        <p>
-          <span className="font-semibold text-gray-400">Rating:</span>{" "}
-          {rating || "-"}
-        </p>
+        {(totalEpisodes || episodes) && (
+          <p>
+            <span className="font-semibold text-gray-400">Episodes:</span>{" "}
+            {totalEpisodes || episodes || "-"}
+          </p>
+        )}
+        {rating && (
+          <p>
+            <span className="font-semibold text-gray-400">Rating:</span>{" "}
+            {rating || "-"}
+          </p>
+        )}
+
         {animeData && (
           <>
             <p>
@@ -55,7 +66,7 @@ const InfoSection = ({
             </p>
           </>
         )}
-        <AnimeGenresTags genres={genres} color={color} />
+        {genres && <AnimeGenresTags genres={genres} color={color} />}
       </div>
     </section>
   );

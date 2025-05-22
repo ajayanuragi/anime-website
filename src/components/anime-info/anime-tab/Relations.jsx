@@ -13,7 +13,7 @@ const Relations = ({ relations, color }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {filtered.length === 0 ? (
-        <div className="min-h-screen flex justify-center items-center">
+        <div className="text-white text-center">
           No related content found
         </div>
       ) : (

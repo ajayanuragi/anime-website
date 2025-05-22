@@ -9,7 +9,11 @@ const RecommendationCard = ({ anime, color }) => {
       className="shadow-slate-800 rounded-xl text-white py-2 cursor-pointer hover:scale-[1.01] hover:text-slate-200
     "
       onClick={() => {
-        navigate(`/anime/${id}`);
+        navigate(`/anime/${id}`, {
+          state: {
+            anime: anime,
+          },
+        });
       }}
     >
       <div
@@ -47,4 +51,4 @@ const RecommendationCard = ({ anime, color }) => {
   );
 };
 
-export default React.memo(RecommendationCard);
+export default RecommendationCard;

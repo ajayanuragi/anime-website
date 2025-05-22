@@ -23,6 +23,7 @@ export function AnimeDetails({ anime, animeData }) {
     duration,
     rating,
     totalEpisodes,
+    episodes,
     genres,
   } = anime;
 
@@ -31,7 +32,7 @@ export function AnimeDetails({ anime, animeData }) {
       {cover && <HeaderSeaction cover={cover} />}
 
       <div className="max-w-6xl mx-auto px-2 py-10 md:px-5 ">
-        <TitleSection title={title} color={color} />
+        {title && <TitleSection title={title} color={color} />}
         <InfoSection
           image={image}
           title={title}
@@ -43,8 +44,11 @@ export function AnimeDetails({ anime, animeData }) {
           animeData={animeData}
           genres={genres}
           color={color}
+          episodes={episodes}
         />
-        <AnimeDescription description={description} color={color} />
+        {description && (
+          <AnimeDescription description={description} color={color} />
+        )}
         {trailer?.site && <AnimeTrailer trailer={trailer} color={color} />}
         {animeData && (
           <div>

@@ -6,23 +6,27 @@ import { AnimeDetails } from "../components/anime-info/AnimeDetails";
 export default function AnimeInfo() {
   const location = useLocation();
   const { id } = useParams();
-  const { anime } = location.state || {};
+  const { anime: initialAnime } = location.state || {};
+  const [anime, setAnime] = useState(initialAnime || null);
   const [animeData, setAnimeData] = useState(null);
-
   useEffect(() => {
+    setAnime(initialAnime || null);
+    setAnimeData(null);
     const fetchEpisodes = async () => {
       try {
         const response = await api.get(`/meta/anilist/info/${id}`);
-        setAnimeData(response.data);
+        const fetched = response.data;
+        setAnimeData(fetched);
+        setAnime((prev) => ({ ...prev, ...fetched }));
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchEpisodes();
-  }, [id]);
+  }, [id, initialAnime]);
 
-  if (!anime && !animeData) {
+  if (!anime) {
     return (
       <div className="text-white bg-slate-800 min-h-screen flex items-center justify-center">
         Loading...
@@ -30,5 +34,5 @@ export default function AnimeInfo() {
     );
   }
 
-  return <AnimeDetails anime={anime || animeData} animeData={animeData} />;
+  return <AnimeDetails anime={anime} animeData={animeData} />;
 }

@@ -3,11 +3,10 @@ import { SearchResults } from "../components/home-page/SearchResults";
 import { useState } from "react";
 import { TrendingAnime } from "../components/home-page/TrendingAnime";
 import { PopularAnime } from "../components/home-page/PopularAnime";
-import { RecentAnime } from "../components/home-page/RecentAnime";
 
 export function Home() {
   const [results, setResults] = useState(null);
-  const [activeTab, setActiveTab] = useState("popular");
+  const [activeTab, setActiveTab] = useState("trending");
 
   return (
     <div className="m-0 p-0 bg-linear-to-bl from-violet-500 to-fuchsia-500">
@@ -40,18 +39,9 @@ export function Home() {
           >
             Popular
           </button>
-          <button
-            className="cursor-pointer border px-4 py-2 rounded-lg"
-            onClick={() => {
-              setActiveTab("recent");
-            }}
-          >
-            Recent
-          </button>
         </div>
         {activeTab === "trending" && <TrendingAnime />}
         {activeTab === "popular" && <PopularAnime />}
-        {activeTab === "recent" && <RecentAnime />}
       </div>
     </div>
   );

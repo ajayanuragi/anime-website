@@ -9,7 +9,11 @@ const RelationCard = ({ relation, color }) => {
       className="shadow-slate-800 rounded-xl text-white py-2 hover:scale-[1.01] hover:text-slate-200 cursor-pointer
     "
       onClick={() => {
-        navigate(`/anime/${id}`);
+        navigate(`/anime/${id}`, {
+          state: {
+            anime: relation,
+          },
+        });
       }}
     >
       <div
