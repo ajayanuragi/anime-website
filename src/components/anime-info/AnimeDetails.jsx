@@ -1,8 +1,14 @@
+import { useState } from "react";
 import AnimeDescription from "./AnimeDescription";
 import AnimeGenresTags from "./AnimeGenresTags";
 import { AnimeTrailer } from "./AnimeTrailer";
+import AnimeTabButtons from "./anime-tab/AnimeTabButtons";
+import Recommendations from "./anime-tab/Recommendations";
+import Relations from "./anime-tab/Relations";
+import Episodes from "./anime-tab/Episodes";
 
 export function AnimeDetails({ anime, animeData }) {
+  const [activeTab, setActiveTab] = useState("recommendations");
   const {
     image,
     title,
@@ -17,8 +23,7 @@ export function AnimeDetails({ anime, animeData }) {
     totalEpisodes,
     genres,
   } = anime;
-  console.log(anime);
-  console.log(animeData);
+
   return (
     <div className="bg-slate-800 text-white min-h-screen">
       {cover && (
@@ -42,7 +47,7 @@ export function AnimeDetails({ anime, animeData }) {
           {title?.english !== title?.romaji ? title?.english : ""}
         </p>
         <section
-          className="flex flex-col md:flex-row gap-6 mb-10"
+          className="flex flex-col md:flex-row gap-6 mb-10" 
           aria-label="Anime main information and image"
         >
           <img
@@ -95,6 +100,28 @@ export function AnimeDetails({ anime, animeData }) {
         </section>
         <AnimeDescription description={description} color={color} />
         {trailer?.site && <AnimeTrailer trailer={trailer} color={color} />}
+        {animeData && (
+          <div>
+            <AnimeTabButtons
+              animeData={animeData}
+              color={color}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+
+            <div className="p-4 rounded-md shadow-xs">
+              {activeTab === "recommendations" && (
+                <Recommendations recommendations={animeData?.recommendations} />
+              )}
+              {activeTab === "relations" && (
+                <Relations relations={animeData?.relations} />
+              )}
+              {activeTab === "episodes" && (
+                <Episodes episodes={animeData?.episodes} />
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
