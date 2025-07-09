@@ -8,7 +8,7 @@ export function PopularAnime() {
   const [hasNext, setHasNext] = useState(false);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
   useEffect(() => {
     const fetchPopularAnime = async () => {
       try {
@@ -21,7 +21,7 @@ export function PopularAnime() {
         setResults(response.data.results);
       } catch (err) {
         console.error(err);
-        setError(err)
+        setError(err);
       } finally {
         setLoading(false);
       }

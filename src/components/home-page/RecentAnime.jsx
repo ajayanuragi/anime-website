@@ -13,7 +13,7 @@ export function RecentAnime() {
     const fetchPopularAnime = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/meta/anilist/recent-episodes`);
+        const response = await api.get(`/meta/anilist/recent-episode`);
         setHasNext(response.data.hasNextPage);
         setPage(response.data.currentPage);
         setResults(response.data.results);
