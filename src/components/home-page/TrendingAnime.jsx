@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import api from "../../api/api";
 import { SearchAnimeCard } from "../browse/SearchAnimeCard";
 
+const CACHE_KEY = "trendingAnimeCache";
+const CACHE_EXPIRATION = 60 * 60 * 1000;
+
 export function TrendingAnime() {
   const [page, setPage] = useState(1);
   const [perPage] = useState(12);
@@ -9,19 +12,43 @@ export function TrendingAnime() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
   useEffect(() => {
+    const loadCache = () => {
+      const cacheStr = localStorage.getItem(CACHE_KEY);
+      return cacheStr ? JSON.parse(cacheStr) : {};
+    };
+
+    const updateCache = (page, data) => {
+      const existingCache = loadCache();
+      existingCache[page] = { ...data, timestamp: Date.now() };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(existingCache));
+    };
+
+    const isCacheValid = (timestamp) => {
+      return Date.now() - timestamp < CACHE_EXPIRATION;
+    };
+
     const fetchTrendingAnime = async () => {
+      setLoading(true);
+      const cache = loadCache();
+      const cachedPage = cache[page];
+      if (cachedPage && isCacheValid(cachedPage.timestamp)) {
+        setResults(cachedPage.results);
+        setHasNext(cachedPage.hasNextPage);
+        setLoading(false);
+        return;
+      }
+
       try {
-        setLoading(true);
         const response = await api.get(
           `/meta/anilist/trending?page=${page}&perPage=${perPage}`
         );
         const data = {
           results: response.data.results,
           hasNextPage: response.data.hasNextPage,
-          page: response.data.currentPage,
         };
-        setPage(data.page);
+        updateCache(page, data);
         setResults(data.results);
         setHasNext(data.hasNextPage);
       } catch (err) {
